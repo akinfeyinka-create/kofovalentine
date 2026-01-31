@@ -10,203 +10,174 @@
 
 <style>
 body {
-    margin:0; padding:0;
+    margin:0;
+    padding:0;
     font-family: 'Playfair Display', serif;
-    background: #fff;
+    background:#fff;
     overflow-x:hidden;
-    color: #ff0000;
-    position:relative;
-}
-
-/* Container blur when popup is active */
-body.blur-active section,
-body.blur-active .hearts,
-body.blur-active .cursor-hearts {
-    filter: blur(5px);
 }
 
 /* Sections */
 section {
-    min-height: 60vh; 
+    min-height:50vh;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     text-align:center;
-    padding:2rem 2rem; 
-    position:relative;
-    background: radial-gradient(circle at top left, #ffe6e6 0%, transparent 70%), 
-                radial-gradient(circle at bottom right, #ffe6e6 0%, transparent 70%);
+    padding:2rem 1.5rem;
+    background:
+        radial-gradient(circle at top left, #ffe6e6 0%, transparent 70%),
+        radial-gradient(circle at bottom right, #ffe6e6 0%, transparent 70%);
 }
 
-/* Text fade-in */
-section h1, section h2, section h3, section p {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 1s ease;
+/* Fade-in on scroll */
+section h1, section h2, section p {
+    opacity:0;
+    transform:translateY(20px);
+    transition:all 1s ease;
 }
-section.visible h1, section.visible h2, section.visible h3, section.visible p {
+section.visible h1,
+section.visible h2,
+section.visible p {
     opacity:1;
-    transform: translateY(0);
+    transform:translateY(0);
 }
 
-/* Great Vibes heading */
-h1.greeting { font-family: 'Great Vibes', cursive; font-size:4rem; margin:1rem 0; }
-
-/* Great Vibes for Come Feb 14 */
-h2.come-feb { 
-    font-family: 'Great Vibes', cursive; 
-    font-size:2rem; 
-    margin:1.5rem 0; 
-    color:black; 
+/* Fonts & colors */
+.greeting {
+    font-family:'Great Vibes', cursive;
+    font-size:4rem;
+    color:red;
 }
 
-/* Black colored lines */
-p.black-text { color:black; font-size:1.5rem; margin:1rem 0; }
+.black-text {
+    color:black;
+}
 
-/* Red text */
-.red-text { color:red; font-size:1.5rem; margin:1rem 0; }
+.red-text {
+    color:red;
+}
 
-/* Other headings and body */
-h2, h3 { font-size:2rem; margin:1.5rem 0; }
-p { font-size:1.5rem; max-width:600px; margin:1rem 0; }
+p {
+    font-size:1.4rem;
+    max-width:600px;
+    margin:0.8rem 0;
+}
 
-/* BE MY VAL ? styling */
+h2 {
+    font-size:2rem;
+    margin:1rem 0;
+}
+
+/* Come Feb 14 */
+.come-feb {
+    font-family:'Great Vibes', cursive;
+    color:black;
+}
+
+/* BE MY VAL */
 .be-my-val {
-    font-size:3rem; /* bigger than other headings */
-    margin-bottom:1rem; /* closer to buttons */
-    text-align:center;
+    font-size:3rem;
+    margin-bottom:0.8rem;
 }
 
-/* Button container for alignment */
+/* Buttons */
 .button-container {
     display:flex;
-    justify-content:center;
-    gap:1.5rem; /* space between buttons */
+    gap:1.2rem;
 }
 
-/* Floating hearts and cursor hearts */
-.hearts, .cursor-hearts { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:0; }
-
-.heart, .burst-heart, .cursor-heart {
-    position:absolute;
-    width:20px; height:20px;
-    background:red; transform:rotate(-45deg);
-}
-.heart:before, .heart:after,
-.burst-heart:before, .burst-heart:after,
-.cursor-heart:before, .cursor-heart:after {
-    content:"";
-    position:absolute;
-    width:20px; height:20px;
-    background:red;
-    border-radius:50%;
-}
-.heart:before { top:-10px; left:0; }
-.heart:after { left:10px; top:0; }
-
-/* Floating hearts animation */
-@keyframes float {
-    0% { transform: translateY(100vh) rotate(-45deg); opacity:0; }
-    50% { opacity:1; }
-    100% { transform: translateY(-100vh) rotate(-45deg); opacity:0; }
-}
-
-/* Buttons with border & depth */
 button {
-    padding:1rem 2rem;
-    font-size:1.5rem;
-    margin:0.8rem;
-    border:2px solid #ff4d4d;
+    padding:0.9rem 2rem;
+    font-size:1.4rem;
     border-radius:10px;
-    cursor:pointer;
-    font-family: 'Playfair Display', serif;
-    background:#fff;
+    border:2px solid red;
+    background:white;
     box-shadow:0 5px 10px rgba(255,0,0,0.3);
-    transition:all 0.3s ease;
+    cursor:pointer;
+    transition:0.3s;
 }
-button:hover { transform: translateY(-3px); box-shadow:0 8px 15px rgba(255,0,0,0.5); }
-.yes { background:#ff4d4d; color:#fff; }
-.no { background:#aaa; color:#fff; border-color:#888; }
 
-/* Popups */
+button:hover {
+    transform:translateY(-3px);
+}
+
+.yes {
+    background:red;
+    color:white;
+}
+
+.no {
+    background:#aaa;
+    color:white;
+    border-color:#777;
+}
+
+/* Popup */
 .popup {
     position:fixed;
     top:50%;
     left:50%;
     transform:translate(-50%, -50%);
-    background:#fff;
+    background:white;
     border:2px solid red;
     padding:2rem;
-    text-align:center;
-    font-size:1.5rem;
+    border-radius:10px;
     display:none;
     z-index:100;
-    border-radius:10px;
-    font-family: 'Great Vibes', cursive;
+    font-family:'Great Vibes', cursive;
+    font-size:1.6rem;
 }
 
-/* Burst hearts animation */
-.burst-heart {
-    width:15px; height:15px;
-    transform:rotate(-45deg);
-    animation: burst 1s ease forwards;
-}
-.burst-heart:before, .burst-heart:after { width:15px; height:15px; }
-@keyframes burst {
-    0% { opacity:1; transform:translate(0,0) rotate(-45deg) scale(1); }
-    100% { opacity:0; transform:translate(var(--x), var(--y)) rotate(-45deg) scale(1.5); }
+body.blur-active section {
+    filter:blur(5px);
 }
 
-/* Cursor hearts animation */
-.cursor-heart { width:10px; height:10px; animation: cursor-fade 1s forwards; }
-.cursor-heart:before, .cursor-heart:after { width:10px; height:10px; }
-@keyframes cursor-fade { 0% { opacity:1; transform:scale(1);} 100% { opacity:0; transform:scale(2);} }
-
-/* Mobile responsiveness */
+/* Mobile */
 @media(max-width:768px){
-    h1.greeting { font-size:3rem; }
-    h2, h3, h2.come-feb { font-size:1.5rem; }
-    .be-my-val { font-size:2.2rem; } /* smaller on mobile */
-    p, p.black-text, .red-text { font-size:1.2rem; }
-    button { padding:0.8rem 1.5rem; font-size:1.2rem; }
+    .greeting { font-size:3rem; }
+    h2 { font-size:1.6rem; }
+    .be-my-val { font-size:2.2rem; }
+    p { font-size:1.2rem; }
 }
 </style>
 </head>
+
 <body>
 
-<div class="hearts"></div>
-<div class="cursor-hearts"></div>
-
-<section id="section1">
+<section>
     <h1 class="greeting">Hi, Kofo ❤️</h1>
-    <p>
-        <span class="black-text">I really hope this doesn't take too much of your time.</span><br>
-        <span class="red-text">But here goes...</span>
-    </p>
+
+    <!-- NEW TEXT STRUCTURE -->
+    <p class="red-text">I just wanted to say something properly.</p>
+    <p class="black-text">But here goes…</p>
 </section>
 
-<section id="section2">
-    <h2>Roses are red,</h2>
-    <h2>Violets are blue...</h2>
+<section>
+    <h2 class="red-text">Roses are red,</h2>
+    <h2 class="red-text">Violets are blue…</h2>
     <h2 class="come-feb">Come Feb 14,</h2>
 </section>
 
-<section id="section3">
-    <h2>My Intentions?</h2>
-    <p>It's straightforward.<br>I like you and I'm serious about it</p>
+<section>
+    <h2 class="red-text">My Intentions?</h2>
+    <p class="red-text">It’s straightforward.<br>I like you and I’m serious about it.</p>
 </section>
 
-<section id="section4">
-    <h1>I NEED YOU</h1>
-    <h2>to be my val</h2>
+<section>
+    <h2 class="red-text">I NEED YOU</h2>
+    <h2 class="red-text">to be my val</h2>
 </section>
 
-<section id="section5">
-    <p>This was the best way I thought to ask since you didn’t open the first one. But I like you a lot ❤️</p>
+<section>
+    <p class="red-text">
+        This was the best way I thought to ask since you didn’t open the first one.
+        But I like you a lot ❤️
+    </p>
 </section>
 
-<section id="section6">
+<section>
     <h2 class="black-text be-my-val">BE MY VAL ?</h2>
     <div class="button-container">
         <button class="yes">Yes</button>
@@ -217,80 +188,39 @@ button:hover { transform: translateY(-3px); box-shadow:0 8px 15px rgba(255,0,0,0
 <div class="popup" id="popup"></div>
 
 <script>
-// Floating hearts
-const heartsContainer = document.querySelector('.hearts');
-for(let i=0;i<30;i++){
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-    heart.style.left = Math.random()*100+'vw';
-    heart.style.animationDuration = (4 + Math.random()*4) + 's';
-    heart.style.animationDelay = Math.random()*4+'s';
-    heart.style.animationName = 'float';
-    heart.style.animationTimingFunction = 'linear';
-    heart.style.animationIterationCount = 'infinite';
-    heartsContainer.appendChild(heart);
-}
-
-// Scroll fade-in for each section's text
+// Fade-in observer
 const sections = document.querySelectorAll('section');
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
         if(entry.isIntersecting){
             entry.target.classList.add('visible');
         }
     });
 },{threshold:0.2});
-sections.forEach(section => observer.observe(section));
+sections.forEach(sec=>observer.observe(sec));
 
-// Popups and heart bursts
+// Popup logic
 const popup = document.getElementById('popup');
 
-function createBurst(x, y){
-    for(let i=0;i<20;i++){
-        const bh = document.createElement('div');
-        bh.classList.add('burst-heart');
-        const angle = Math.random()*2*Math.PI;
-        const distance = 50+Math.random()*50;
-        bh.style.setProperty('--x', Math.cos(angle)*distance+'px');
-        bh.style.setProperty('--y', Math.sin(angle)*distance+'px');
-        bh.style.left = x+'px';
-        bh.style.top = y+'px';
-        document.body.appendChild(bh);
-        setTimeout(()=>bh.remove(),1000);
-    }
-}
-
-document.querySelector('.yes').addEventListener('click', (e)=>{
+document.querySelector('.yes').onclick = ()=>{
     document.body.classList.add('blur-active');
-    popup.innerHTML="I knew you’d say yes because you have great taste! ❤️";
-    popup.style.display='block';
-    createBurst(e.clientX, e.clientY);
+    popup.innerHTML = "I knew you’d say yes — you have great taste ❤️";
+    popup.style.display = "block";
     setTimeout(()=>{
-        popup.style.display='none';
+        popup.style.display="none";
         document.body.classList.remove('blur-active');
     },4000);
-});
-document.querySelector('.no').addEventListener('click', (e)=>{
+};
+
+document.querySelector('.no').onclick = ()=>{
     document.body.classList.add('blur-active');
-    popup.innerHTML="That’s fine either way, thank you ❤️";
-    popup.style.display='block';
-    createBurst(e.clientX, e.clientY);
+    popup.innerHTML = "That’s fine either way, thank you ❤️";
+    popup.style.display = "block";
     setTimeout(()=>{
-        popup.style.display='none';
+        popup.style.display="none";
         document.body.classList.remove('blur-active');
     },4000);
-});
-
-// Cursor heart trail
-const cursorContainer = document.querySelector('.cursor-hearts');
-document.addEventListener('mousemove', e=>{
-    const ch = document.createElement('div');
-    ch.classList.add('cursor-heart');
-    ch.style.left = (e.pageX-5)+'px';
-    ch.style.top = (e.pageY-5)+'px';
-    cursorContainer.appendChild(ch);
-    setTimeout(()=>ch.remove(),1000);
-});
+};
 </script>
 
 </body>
