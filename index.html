@@ -27,20 +27,28 @@ body.blur-active .cursor-hearts {
 
 /* Sections */
 section {
-    min-height:120vh; /* increase spacing between sections */
+    min-height: 60vh; 
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     text-align:center;
-    padding:4rem 2rem; /* more spacing */
+    padding:2rem 2rem; 
     position:relative;
-    opacity:0;
-    transform: translateY(50px);
-    transition: all 1s ease;
-    background: radial-gradient(circle at top left, #ffe6e6 0%, transparent 70%), radial-gradient(circle at bottom right, #ffe6e6 0%, transparent 70%);
+    background: radial-gradient(circle at top left, #ffe6e6 0%, transparent 70%), 
+                radial-gradient(circle at bottom right, #ffe6e6 0%, transparent 70%);
 }
-section.visible { opacity:1; transform:translateY(0); }
+
+/* Text fade-in */
+section h1, section h2, section h3, section p {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s ease;
+}
+section.visible h1, section.visible h2, section.visible h3, section.visible p {
+    opacity:1;
+    transform: translateY(0);
+}
 
 /* Great Vibes heading */
 h1.greeting { font-family: 'Great Vibes', cursive; font-size:4rem; margin:1rem 0; }
@@ -49,16 +57,33 @@ h1.greeting { font-family: 'Great Vibes', cursive; font-size:4rem; margin:1rem 0
 h2.come-feb { 
     font-family: 'Great Vibes', cursive; 
     font-size:2rem; 
-    margin:2rem 0; 
+    margin:1.5rem 0; 
     color:black; 
 }
 
 /* Black colored lines */
-p.black-text { color:black; font-size:1.5rem; margin:2rem 0; }
+p.black-text { color:black; font-size:1.5rem; margin:1rem 0; }
+
+/* Red text */
+.red-text { color:red; font-size:1.5rem; margin:1rem 0; }
 
 /* Other headings and body */
-h2, h3 { font-size:2rem; margin:2rem 0; }
-p { font-size:1.5rem; max-width:600px; margin:2rem 0; }
+h2, h3 { font-size:2rem; margin:1.5rem 0; }
+p { font-size:1.5rem; max-width:600px; margin:1rem 0; }
+
+/* BE MY VAL ? styling */
+.be-my-val {
+    font-size:3rem; /* bigger than other headings */
+    margin-bottom:1rem; /* closer to buttons */
+    text-align:center;
+}
+
+/* Button container for alignment */
+.button-container {
+    display:flex;
+    justify-content:center;
+    gap:1.5rem; /* space between buttons */
+}
 
 /* Floating hearts and cursor hearts */
 .hearts, .cursor-hearts { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:0; }
@@ -91,7 +116,7 @@ p { font-size:1.5rem; max-width:600px; margin:2rem 0; }
 button {
     padding:1rem 2rem;
     font-size:1.5rem;
-    margin:1rem;
+    margin:0.8rem;
     border:2px solid #ff4d4d;
     border-radius:10px;
     cursor:pointer;
@@ -142,7 +167,8 @@ button:hover { transform: translateY(-3px); box-shadow:0 8px 15px rgba(255,0,0,0
 @media(max-width:768px){
     h1.greeting { font-size:3rem; }
     h2, h3, h2.come-feb { font-size:1.5rem; }
-    p, p.black-text { font-size:1.2rem; }
+    .be-my-val { font-size:2.2rem; } /* smaller on mobile */
+    p, p.black-text, .red-text { font-size:1.2rem; }
     button { padding:0.8rem 1.5rem; font-size:1.2rem; }
 }
 </style>
@@ -154,7 +180,10 @@ button:hover { transform: translateY(-3px); box-shadow:0 8px 15px rgba(255,0,0,0
 
 <section id="section1">
     <h1 class="greeting">Hi, Kofo ❤️</h1>
-    <p class="black-text">I really hope this doesn't take too much of your time.<br>But here goes...</p>
+    <p>
+        <span class="black-text">I really hope this doesn't take too much of your time.</span><br>
+        <span class="red-text">But here goes...</span>
+    </p>
 </section>
 
 <section id="section2">
@@ -178,8 +207,8 @@ button:hover { transform: translateY(-3px); box-shadow:0 8px 15px rgba(255,0,0,0
 </section>
 
 <section id="section6">
-    <h2 class="black-text">BE MY VAL ?</h2>
-    <div>
+    <h2 class="black-text be-my-val">BE MY VAL ?</h2>
+    <div class="button-container">
         <button class="yes">Yes</button>
         <button class="no">No</button>
     </div>
@@ -202,7 +231,7 @@ for(let i=0;i<30;i++){
     heartsContainer.appendChild(heart);
 }
 
-// Scroll fade-in
+// Scroll fade-in for each section's text
 const sections = document.querySelectorAll('section');
 const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
