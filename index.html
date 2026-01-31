@@ -18,7 +18,7 @@ body {
     position: relative;
 }
 
-/* Floating Hearts */
+/* Floating Hearts Container */
 .hearts {
     position: fixed;
     top:0;
@@ -30,32 +30,28 @@ body {
     z-index:0;
 }
 
+/* Individual Heart */
 .heart {
     position: absolute;
     font-size: 24px;
     animation: floatHeart linear infinite;
+    will-change: transform;
 }
 
+/* Heart floating keyframes */
 @keyframes floatHeart {
     0% {
-        transform: translateY(100vh) translateX(0) rotate(0deg);
+        transform: translate(0, 100vh) rotate(0deg);
         opacity: 0;
     }
     10% {
         opacity: 1;
     }
     100% {
-        transform: translateY(-50vh) translateX(100px) rotate(360deg);
+        transform: translate(var(--x-move, 50px), -50vh) rotate(var(--rotation, 360deg));
         opacity: 0;
     }
 }
-
-/* Randomize hearts */
-.heart:nth-child(1) { left: 10%; animation-duration:6s; animation-delay:0s; font-size:20px; }
-.heart:nth-child(2) { left: 30%; animation-duration:8s; animation-delay:2s; font-size:25px; }
-.heart:nth-child(3) { left: 50%; animation-duration:7s; animation-delay:1s; font-size:22px; }
-.heart:nth-child(4) { left: 70%; animation-duration:9s; animation-delay:3s; font-size:28px; }
-.heart:nth-child(5) { left: 90%; animation-duration:6s; animation-delay:1.5s; font-size:24px; }
 
 /* Sections */
 section {
@@ -92,33 +88,14 @@ section.visible .fade-image {
 }
 
 /* Text styles */
-.greeting {
-    font-family:'Great Vibes', cursive;
-    font-size:4rem;
-    color:red;
-}
+.greeting { font-family:'Great Vibes', cursive; font-size:4rem; color:red; }
+.black-text { color:black; }
+.red-text { color:red; }
+p { font-size:1.4rem; max-width:600px; margin:0.8rem 0; }
+h2 { font-size:2rem; margin:1rem 0; }
 
-.black-text {
-    color:black;
-}
-
-.red-text {
-    color:red;
-}
-
-p {
-    font-size:1.4rem;
-    max-width:600px;
-    margin:0.8rem 0;
-}
-
-h2 {
-    font-size:2rem;
-    margin:1rem 0;
-}
-
-/* Image styling & floating animation */
-@keyframes float {
+/* Flower styling & floating animation */
+@keyframes floatFlower {
     0% { transform: translateY(0); }
     50% { transform: translateY(-15px); }
     100% { transform: translateY(0); }
@@ -128,26 +105,17 @@ h2 {
     width:220px;
     max-width:80%;
     margin-top:1rem;
-    animation: float 3s ease-in-out infinite;
+    animation: floatFlower 3s ease-in-out infinite;
 }
 
 /* Come Feb 14 */
-.come-feb {
-    font-family:'Great Vibes', cursive;
-    color:black;
-}
+.come-feb { font-family:'Great Vibes', cursive; color:black; }
 
 /* BE MY VAL */
-.be-my-val {
-    font-size:3rem;
-    margin-bottom:0.8rem;
-}
+.be-my-val { font-size:3rem; margin-bottom:0.8rem; }
 
 /* Buttons */
-.button-container {
-    display:flex;
-    gap:1.2rem;
-}
+.button-container { display:flex; gap:1.2rem; }
 
 button {
     padding:0.9rem 2rem;
@@ -160,20 +128,10 @@ button {
     transition:0.3s;
 }
 
-button:hover {
-    transform:translateY(-3px);
-}
+button:hover { transform:translateY(-3px); }
 
-.yes {
-    background:red;
-    color:white;
-}
-
-.no {
-    background:#aaa;
-    color:white;
-    border-color:#777;
-}
+.yes { background:red; color:white; }
+.no { background:#aaa; color:white; border-color:#777; }
 
 /* Popup */
 .popup {
@@ -189,11 +147,13 @@ button:hover {
     z-index:100;
     font-family:'Great Vibes', cursive;
     font-size:1.6rem;
+    opacity:0;
+    transition: opacity 0.5s ease;
 }
 
-body.blur-active section {
-    filter:blur(5px);
-}
+.popup.show { display:block; opacity:1; }
+
+body.blur-active section { filter:blur(5px); }
 
 /* Mobile */
 @media(max-width:768px){
@@ -209,13 +169,7 @@ body.blur-active section {
 <body>
 
 <!-- Floating Hearts -->
-<div class="hearts">
-    <div class="heart">❤️</div>
-    <div class="heart">❤️</div>
-    <div class="heart">❤️</div>
-    <div class="heart">❤️</div>
-    <div class="heart">❤️</div>
-</div>
+<div class="hearts" id="hearts"></div>
 
 <section>
     <h1 class="greeting">Hi, Kofo ❤️</h1>
@@ -272,15 +226,15 @@ const observer = new IntersectionObserver(entries=>{
 },{threshold:0.2});
 sections.forEach(sec=>observer.observe(sec));
 
-// Popup logic
+// Popup logic with fade
 const popup = document.getElementById('popup');
 
 document.querySelector('.yes').onclick = ()=>{
     document.body.classList.add('blur-active');
     popup.innerHTML = "I knew you’d say yes — you have great taste ❤️";
-    popup.style.display = "block";
+    popup.classList.add('show');
     setTimeout(()=>{
-        popup.style.display="none";
+        popup.classList.remove('show');
         document.body.classList.remove('blur-active');
     },4000);
 };
@@ -288,12 +242,31 @@ document.querySelector('.yes').onclick = ()=>{
 document.querySelector('.no').onclick = ()=>{
     document.body.classList.add('blur-active');
     popup.innerHTML = "That’s fine either way, thank you ❤️";
-    popup.style.display = "block";
+    popup.classList.add('show');
     setTimeout(()=>{
-        popup.style.display="none";
+        popup.classList.remove('show');
         document.body.classList.remove('blur-active');
     },4000);
 };
+
+// Generate magical floating hearts dynamically
+const heartsContainer = document.getElementById('hearts');
+
+for(let i=0;i<30;i++){
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerText = '❤️';
+
+    // Random starting position
+    heart.style.left = Math.random()*100 + 'vw';
+    heart.style.fontSize = (15 + Math.random()*25) + 'px';
+    heart.style.setProperty('--x-move', (Math.random()*200 - 100) + 'px'); // horizontal drift
+    heart.style.setProperty('--rotation', (Math.random()*720 - 360) + 'deg'); // random rotation
+    heart.style.animationDuration = (5 + Math.random()*7) + 's';
+    heart.style.animationDelay = Math.random()*5 + 's';
+
+    heartsContainer.appendChild(heart);
+}
 </script>
 
 </body>
