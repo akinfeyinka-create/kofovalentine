@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hi Kofo ❤️</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin:0; padding:0;
+    font-family: 'Playfair Display', serif;
+    background: #fff;
+    overflow-x:hidden;
+    color: #ff0000;
+    position:relative;
+}
+
+/* Container blur when popup is active */
+body.blur-active section,
+body.blur-active .hearts,
+body.blur-active .cursor-hearts {
+    filter: blur(5px);
+}
+
+/* Sections */
+section {
+    min-height:120vh; /* increase spacing between sections */
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:4rem 2rem; /* more spacing */
+    position:relative;
+    opacity:0;
+    transform: translateY(50px);
+    transition: all 1s ease;
+    background: radial-gradient(circle at top left, #ffe6e6 0%, transparent 70%), radial-gradient(circle at bottom right, #ffe6e6 0%, transparent 70%);
+}
+section.visible { opacity:1; transform:translateY(0); }
+
+/* Great Vibes heading */
+h1.greeting { font-family: 'Great Vibes', cursive; font-size:4rem; margin:1rem 0; }
+
+/* Great Vibes for Come Feb 14 */
+h2.come-feb { 
+    font-family: 'Great Vibes', cursive; 
+    font-size:2rem; 
+    margin:2rem 0; 
+    color:black; 
+}
+
+/* Black colored lines */
+p.black-text { color:black; font-size:1.5rem; margin:2rem 0; }
+
+/* Other headings and body */
+h2, h3 { font-size:2rem; margin:2rem 0; }
+p { font-size:1.5rem; max-width:600px; margin:2rem 0; }
+
+/* Floating hearts and cursor hearts */
+.hearts, .cursor-hearts { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:0; }
+
+.heart, .burst-heart, .cursor-heart {
+    position:absolute;
+    width:20px; height:20px;
+    background:red; transform:rotate(-45deg);
+}
+.heart:before, .heart:after,
+.burst-heart:before, .burst-heart:after,
+.cursor-heart:before, .cursor-heart:after {
+    content:"";
+    position:absolute;
+    width:20px; height:20px;
+    background:red;
+    border-radius:50%;
+}
+.heart:before { top:-10px; left:0; }
+.heart:after { left:10px; top:0; }
+
+/* Floating hearts animation */
+@keyframes float {
+    0% { transform: translateY(100vh) rotate(-45deg); opacity:0; }
+    50% { opacity:1; }
+    100% { transform: translateY(-100vh) rotate(-45deg); opacity:0; }
+}
+
+/* Buttons with border & depth */
+button {
+    padding:1rem 2rem;
+    font-size:1.5rem;
+    margin:1rem;
+    border:2px solid #ff4d4d;
+    border-radius:10px;
+    cursor:pointer;
+    font-family: 'Playfair Display', serif;
+    background:#fff;
+    box-shadow:0 5px 10px rgba(255,0,0,0.3);
+    transition:all 0.3s ease;
+}
+button:hover { transform: translateY(-3px); box-shadow:0 8px 15px rgba(255,0,0,0.5); }
+.yes { background:#ff4d4d; color:#fff; }
+.no { background:#aaa; color:#fff; border-color:#888; }
+
+/* Popups */
+.popup {
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    background:#fff;
+    border:2px solid red;
+    padding:2rem;
+    text-align:center;
+    font-size:1.5rem;
+    display:none;
+    z-index:100;
+    border-radius:10px;
+    font-family: 'Great Vibes', cursive;
+}
+
+/* Burst hearts animation */
+.burst-heart {
+    width:15px; height:15px;
+    transform:rotate(-45deg);
+    animation: burst 1s ease forwards;
+}
+.burst-heart:before, .burst-heart:after { width:15px; height:15px; }
+@keyframes burst {
+    0% { opacity:1; transform:translate(0,0) rotate(-45deg) scale(1); }
+    100% { opacity:0; transform:translate(var(--x), var(--y)) rotate(-45deg) scale(1.5); }
+}
+
+/* Cursor hearts animation */
+.cursor-heart { width:10px; height:10px; animation: cursor-fade 1s forwards; }
+.cursor-heart:before, .cursor-heart:after { width:10px; height:10px; }
+@keyframes cursor-fade { 0% { opacity:1; transform:scale(1);} 100% { opacity:0; transform:scale(2);} }
+
+/* Mobile responsiveness */
+@media(max-width:768px){
+    h1.greeting { font-size:3rem; }
+    h2, h3, h2.come-feb { font-size:1.5rem; }
+    p, p.black-text { font-size:1.2rem; }
+    button { padding:0.8rem 1.5rem; font-size:1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="hearts"></div>
+<div class="cursor-hearts"></div>
+
+<section id="section1">
+    <h1 class="greeting">Hi, Kofo ❤️</h1>
+    <p class="black-text">I really hope this doesn't take too much of your time.<br>But here goes...</p>
+</section>
+
+<section id="section2">
+    <h2>Roses are red,</h2>
+    <h2>Violets are blue...</h2>
+    <h2 class="come-feb">Come Feb 14,</h2>
+</section>
+
+<section id="section3">
+    <h2>My Intentions?</h2>
+    <p>It's straightforward.<br>I like you and I'm serious about it</p>
+</section>
+
+<section id="section4">
+    <h1>I NEED YOU</h1>
+    <h2>to be my val</h2>
+</section>
+
+<section id="section5">
+    <p>This was the best way I thought to ask since you didn’t open the first one. But I like you a lot ❤️</p>
+</section>
+
+<section id="section6">
+    <h2 class="black-text">BE MY VAL ?</h2>
+    <div>
+        <button class="yes">Yes</button>
+        <button class="no">No</button>
+    </div>
+</section>
+
+<div class="popup" id="popup"></div>
+
+<script>
+// Floating hearts
+const heartsContainer = document.querySelector('.hearts');
+for(let i=0;i<30;i++){
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = Math.random()*100+'vw';
+    heart.style.animationDuration = (4 + Math.random()*4) + 's';
+    heart.style.animationDelay = Math.random()*4+'s';
+    heart.style.animationName = 'float';
+    heart.style.animationTimingFunction = 'linear';
+    heart.style.animationIterationCount = 'infinite';
+    heartsContainer.appendChild(heart);
+}
+
+// Scroll fade-in
+const sections = document.querySelectorAll('section');
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+        }
+    });
+},{threshold:0.2});
+sections.forEach(section => observer.observe(section));
+
+// Popups and heart bursts
+const popup = document.getElementById('popup');
+
+function createBurst(x, y){
+    for(let i=0;i<20;i++){
+        const bh = document.createElement('div');
+        bh.classList.add('burst-heart');
+        const angle = Math.random()*2*Math.PI;
+        const distance = 50+Math.random()*50;
+        bh.style.setProperty('--x', Math.cos(angle)*distance+'px');
+        bh.style.setProperty('--y', Math.sin(angle)*distance+'px');
+        bh.style.left = x+'px';
+        bh.style.top = y+'px';
+        document.body.appendChild(bh);
+        setTimeout(()=>bh.remove(),1000);
+    }
+}
+
+document.querySelector('.yes').addEventListener('click', (e)=>{
+    document.body.classList.add('blur-active');
+    popup.innerHTML="I knew you’d say yes because you have great taste! ❤️";
+    popup.style.display='block';
+    createBurst(e.clientX, e.clientY);
+    setTimeout(()=>{
+        popup.style.display='none';
+        document.body.classList.remove('blur-active');
+    },4000);
+});
+document.querySelector('.no').addEventListener('click', (e)=>{
+    document.body.classList.add('blur-active');
+    popup.innerHTML="That’s fine either way, thank you ❤️";
+    popup.style.display='block';
+    createBurst(e.clientX, e.clientY);
+    setTimeout(()=>{
+        popup.style.display='none';
+        document.body.classList.remove('blur-active');
+    },4000);
+});
+
+// Cursor heart trail
+const cursorContainer = document.querySelector('.cursor-hearts');
+document.addEventListener('mousemove', e=>{
+    const ch = document.createElement('div');
+    ch.classList.add('cursor-heart');
+    ch.style.left = (e.pageX-5)+'px';
+    ch.style.top = (e.pageY-5)+'px';
+    cursorContainer.appendChild(ch);
+    setTimeout(()=>ch.remove(),1000);
+});
+</script>
+
+</body>
+</html>
