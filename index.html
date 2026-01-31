@@ -12,7 +12,7 @@
 body {
     margin:0;
     padding:0;
-    font-family: 'Playfair Display', serif;
+    font-family:'Playfair Display', serif;
     background:#fff;
     overflow-x:hidden;
 }
@@ -31,20 +31,25 @@ section {
         radial-gradient(circle at bottom right, #ffe6e6 0%, transparent 70%);
 }
 
-/* Fade-in on scroll */
-section h1, section h2, section p {
+/* Fade-in animation */
+section h1,
+section h2,
+section p,
+.fade-image {
     opacity:0;
     transform:translateY(20px);
     transition:all 1s ease;
 }
+
 section.visible h1,
 section.visible h2,
-section.visible p {
+section.visible p,
+section.visible .fade-image {
     opacity:1;
     transform:translateY(0);
 }
 
-/* Fonts & colors */
+/* Text styles */
 .greeting {
     font-family:'Great Vibes', cursive;
     font-size:4rem;
@@ -68,6 +73,13 @@ p {
 h2 {
     font-size:2rem;
     margin:1rem 0;
+}
+
+/* Image styling */
+.fade-image {
+    width:220px;
+    max-width:80%;
+    margin-top:1rem;
 }
 
 /* Come Feb 14 */
@@ -140,6 +152,7 @@ body.blur-active section {
     h2 { font-size:1.6rem; }
     .be-my-val { font-size:2.2rem; }
     p { font-size:1.2rem; }
+    .fade-image { width:180px; }
 }
 </style>
 </head>
@@ -149,9 +162,11 @@ body.blur-active section {
 <section>
     <h1 class="greeting">Hi, Kofo ❤️</h1>
 
-    <!-- NEW TEXT STRUCTURE -->
     <p class="red-text">I just wanted to say something properly.</p>
     <p class="black-text">But here goes…</p>
+
+    <!-- IMAGE ADDED HERE -->
+    <img src="flower.png" alt="Flower" class="fade-image">
 </section>
 
 <section>
@@ -188,7 +203,7 @@ body.blur-active section {
 <div class="popup" id="popup"></div>
 
 <script>
-// Fade-in observer
+// Fade-in on scroll
 const sections = document.querySelectorAll('section');
 const observer = new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
